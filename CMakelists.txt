@@ -1,0 +1,35 @@
+cmake_minimum_required(VERSION 3.15)
+
+project(imgui)
+
+
+set(SOURCES main.cpp
+imgui.cpp
+imgui_draw.cpp
+imgui_widgets.cpp
+imgui_demo.cpp
+)
+
+set(HEADERS .)
+
+#target_include_directories(imgui PRIVATE .)
+
+if (WIN32)
+    # DX11
+    list(APPEND SOURCES platform/win32/imgui_impl_dx11.cpp)
+    list(APPEND SOURCES platform/win32/imgui_impl_win32.cpp)
+    list(APPEND HEASERS platform/win32/)
+
+    # d3d11.lib d3dcompiler.lib
+    add_library(d3d11.lib STATIC IMPORTED GLOBAL)
+    add_library(d3dcompiler.lib STATIC IMPORTED GLOBAL)
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /subsystem:windows") 
+
+endif()
+
+#target_sources(imgui PUBLIC ${SOURCE})
+add_executable(imgui ${SOURCES})
+
+target_include_directories(imgui PUBLIC ${HEASERS})
+include_directories(${HEADERS})
+target_link_libraries(imgui d3dcompiler d3d11)
