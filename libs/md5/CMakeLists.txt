@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 
 set(lib_name md5)
-set(target_name ext_${lib_name})
+set(target_name lib_${lib_name})
 
 project(${lib_name})
 

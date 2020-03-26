@@ -1,35 +1,52 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(imgui)
+set(APP_NAME editor)
 
+project(${APP_NAME})
 
-set(SOURCES main.cpp
-imgui.cpp
-imgui_draw.cpp
-imgui_widgets.cpp
-imgui_demo.cpp
+include(cmake/config.cmake)
+
+# use GLFW
+# OPENGL2 or OPENGL3 or vulkan (OPENGL3 is Default)
+option(BUILD_OPENGL3_RENDER "Build with OpenGL3 render" ON)
+option(BUILD_OPENGL2_RENDER "Build with OpenGL2 render" OFF)
+
+option(BUILD_VULKAN_RENDER "Build with Vulkan render" OFF) # not avalivle yet
+# Metal Avalible in MacOSX
+option(BUILD_METAL_RENDER "Build with Metal render" ON)# not avalivle yet
+
+set(SOURCES 
+src/imgui_impl_glfw.cpp
 )
 
-set(HEADERS .)
+set(HEADERS 
+    src
+)
 
-#target_include_directories(imgui PRIVATE .)
+if(MACOSX AND BUILD_METAL_RENDER)
+    # use metal for render
+    list(APPEND SOURCES src/main.mm)
+else()
+    list(APPEND SOURCES src/main.cpp)
+endif()
+add_subdirectory(libs)
 
-if (WIN32)
-    # DX11
-    list(APPEND SOURCES platform/win32/imgui_impl_dx11.cpp)
-    list(APPEND SOURCES platform/win32/imgui_impl_win32.cpp)
-    list(APPEND HEASERS platform/win32/)
-
-    # d3d11.lib d3dcompiler.lib
-    add_library(d3d11.lib STATIC IMPORTED GLOBAL)
-    add_library(d3dcompiler.lib STATIC IMPORTED GLOBAL)
+if (WINDOWS)
     SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /subsystem:windows") 
-
 endif()
 
-#target_sources(imgui PUBLIC ${SOURCE})
-add_executable(imgui ${SOURCES})
+add_executable(${APP_NAME} ${SOURCES})
 
-target_include_directories(imgui PUBLIC ${HEASERS})
+target_include_directories(${APP_NAME} PUBLIC ${HEADERS})
+
 include_directories(${HEADERS})
-target_link_libraries(imgui d3dcompiler d3d11)
+
+target_link_libraries(${APP_NAME} libs)
+
+if(BUILD_OPENGL3_RENDER)
+    add_definitions(-D CEF_OPENGL3_RENDER)
+elseif(BUILD_OPENGL2_RENDER)
+    add_definitions(-D CEF_OPENGL2_RENDER)
+elseif(BUILD_VULKAN_RENDER)
+    add_definitions(-D CEF_VULKAN_RENDER)
+endif()
