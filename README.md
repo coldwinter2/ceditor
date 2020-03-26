@@ -1,4 +1,4 @@
-# coldef
+# CEditor Framework
 
 This is an Editor Framework.
 
