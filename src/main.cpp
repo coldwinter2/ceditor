@@ -6,6 +6,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_render.h"
 #include <stdio.h>
+#include "AppDelegate.h"
 
 #ifdef CEF_OPENGL3_RENDER
 // About Desktop OpenGL function loaders:
@@ -43,7 +44,7 @@ static void glfw_error_callback(int error, const char* description)
     fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 }
 #if __APPLE__
-int main(const char**)
+int main(int argc,char** argv)
 #else
 #include <Windows.h>
 int WinMain(HINSTANCE hInstance,
@@ -52,6 +53,9 @@ int WinMain(HINSTANCE hInstance,
 	int nCmdShow)
 #endif
 {
+	AppDelegate app;
+	app.onAppCreate();
+
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
@@ -75,7 +79,7 @@ int WinMain(HINSTANCE hInstance,
 #endif
 #endif // CEF_OPENGL3_RENDER
     // Create window with graphics context
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+OpenGL3 example", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(1280, 720, app.getAppTitle(), NULL, NULL);
     if (window == NULL)
         return 1;
     glfwMakeContextCurrent(window);
@@ -148,9 +152,7 @@ int WinMain(HINSTANCE hInstance,
     //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
     //IM_ASSERT(font != NULL);
 
-    // Our state
-    bool show_demo_window = true;
-    bool show_another_window = false;
+
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     // Main loop
@@ -168,11 +170,8 @@ int WinMain(HINSTANCE hInstance,
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (show_demo_window)
-            ImGui::ShowDemoWindow(&show_demo_window);
 
-
+		app.onLoop();
 
         // Rendering
         ImGui::Render();
@@ -204,6 +203,6 @@ int WinMain(HINSTANCE hInstance,
 
     glfwDestroyWindow(window);
     glfwTerminate();
-
+	app.onExit();
     return 0;
 }

@@ -13,15 +13,12 @@ add_library(${target_name} STATIC
   ${${target_name}_src}
 )
 
-target_include_directories(${target_name} PUBLIC .)
+target_include_directories(${target_name} PUBLIC .
+INTERFACE .)
 
-include(../cmake/CocosExternalConfig.cmake)
+include(../../cmake/config.cmake)
 if(WINDOWS)
-  if(BUILD_SHARED_LIBS)
-    target_compile_definitions(${target_name} PRIVATE _USRDLL)
-  else()
     target_compile_definitions(${target_name} PRIVATE CC_STATIC)
-  endif()
 endif()
 
 set_target_properties(${target_name}

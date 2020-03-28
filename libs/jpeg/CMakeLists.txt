@@ -5,19 +5,32 @@ set(target_name lib_${lib_name})
 
 project(${lib_name})
 
-include(../cmake/CocosExternalConfig.cmake)
+include(../../cmake/config.cmake)
 
 add_library(${target_name} STATIC IMPORTED GLOBAL)
 
-set_target_properties(${target_name} PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/include/${platform_name}"
-)
 if(WINDOWS)
   set_target_properties(${target_name} PROPERTIES
-    IMPORTED_LOCATION "${platform_spec_path}/lib${lib_name}.lib"
+    INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/include/win32"
+  )
+  set_target_properties(${target_name} PROPERTIES
+    IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/prebuilt/win32/lib${lib_name}.lib"
+  )
+elseif(MACOSX)
+  set_target_properties(${target_name} PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/include/mac"
+  )
+  set_target_properties(${target_name} PROPERTIES
+    IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/prebuilt/mac/lib${lib_name}.a"
   )
 else()
-  set_target_properties(${target_name} PROPERTIES
-    IMPORTED_LOCATION "${platform_spec_path}/lib${lib_name}.a"
-  )
+  message("Error Jpeg lib not found for target platform")
 endif()
+
+
+set_target_properties(${target_name}
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+    FOLDER "External"
+)

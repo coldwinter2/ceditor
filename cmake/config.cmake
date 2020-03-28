@@ -21,3 +21,11 @@
          set(SYSTEM_STRING "Mac OSX")
      endif()
  endif()
+ 
+function(use_compile_options target)
+    if(MSVC)
+        target_compile_options(${target}
+            PUBLIC /MP
+        )
+    endif()
+endfunction()

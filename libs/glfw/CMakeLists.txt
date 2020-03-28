@@ -27,5 +27,5 @@ elseif(MACOSX)
         IMPORTED_LOCATION "${CMAKE_CURRENT_SOURCE_DIR}/mac/lib${lib_name}.a"
     )
 else()
-
+    message("Platform not Support")
 endif()

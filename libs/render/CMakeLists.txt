@@ -4,6 +4,7 @@ set(lib_name render)
 set(target_name lib_${lib_name})
 
 project(${lib_name})
+include(../../cmake/config.cmake)
 
 # static link library
 set(${target_name}_libs lib_imgui)
