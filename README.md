@@ -1,10 +1,12 @@
-# CEditor Framework
+# CEditor Framework [English](README_en.md)
 
-This is an Editor Framework.
+一个适合做编辑器的C++项目.
 
-It's based on Dear ImGui.
+界面使用Dear ImGui实现，支持Windows和Mac.
 
-## Windows(VS2017)
+## 使用方法
+
+### Windows(VS2017)
 
 ```
 mkdir win32
@@ -12,3 +14,9 @@ cd win32
 cmake .. -G"Visual Studio 15 2017" -Tv141
 
 ```
+
+### MaxOSX
+
+尚未适配
+
+
