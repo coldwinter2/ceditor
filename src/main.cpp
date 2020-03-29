@@ -54,7 +54,7 @@ int WinMain(HINSTANCE hInstance,
 #endif
 {
 	AppDelegate app;
-	app.onAppCreate();
+	
 
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
@@ -78,12 +78,22 @@ int WinMain(HINSTANCE hInstance,
     //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 #endif
 #endif // CEF_OPENGL3_RENDER
+
+	// no Resizeable
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+	// Full Screen
+	GLFWmonitor *p_monitor = NULL;
+	//p_monitor = glfwGetPrimaryMonitor(); 
+
+
     // Create window with graphics context
-    GLFWwindow* window = glfwCreateWindow(1280, 720, app.getAppTitle(), NULL, NULL);
+
+    GLFWwindow* window = glfwCreateWindow(1280, 720, app.getAppTitle(), p_monitor, NULL);
     if (window == NULL)
         return 1;
     glfwMakeContextCurrent(window);
-    glfwSwapInterval(1); // Enable vsync
+    glfwSwapInterval(1); // Enable vsync ´¹Ö±Í¬²½
 
 #ifdef CEF_OPENGL3_RENDER // OpenGL3 Loader
     // Initialize OpenGL loader
@@ -113,7 +123,7 @@ int WinMain(HINSTANCE hInstance,
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+    //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
 
@@ -154,9 +164,9 @@ int WinMain(HINSTANCE hInstance,
 
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
+	app.onAppCreate();
     // Main loop
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(window) && !app.needExit() )
     {
         // Poll and handle events (inputs, window resize, etc.)
         // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
