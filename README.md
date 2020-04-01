@@ -17,6 +17,10 @@ cmake .. -G"Visual Studio 15 2017" -Tv141
 
 ### MaxOSX
 
-尚未适配
+```
+mkdir macosx
+cd maxosx
+cmake .. -GXcode
+```
 
 
