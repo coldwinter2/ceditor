@@ -13,7 +13,7 @@ option(BUILD_OPENGL2_RENDER "Build with OpenGL2 render" OFF)
 
 #option(BUILD_VULKAN_RENDER "Build with Vulkan render" OFF) # not avalivle yet
 # Metal Avalible in MacOSX
-option(BUILD_METAL_RENDER "Build with Metal render" ON)# not avalivle yet
+option(BUILD_METAL_RENDER "Build with Metal render" OFF)# not avalivle yet
 
 # Use jpeg
 option(BUILD_JPEG "Build with lib jpeg" ON)
