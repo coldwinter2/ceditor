@@ -11,10 +11,6 @@ include(cmake/config.cmake)
 option(BUILD_OPENGL3_RENDER "Build with OpenGL3 render" ON)
 option(BUILD_OPENGL2_RENDER "Build with OpenGL2 render" OFF)
 
-#option(BUILD_VULKAN_RENDER "Build with Vulkan render" OFF) # not avalivle yet
-# Metal Avalible in MacOSX
-option(BUILD_METAL_RENDER "Build with Metal render" ON)# not avalivle yet
-
 # Use jpeg
 option(BUILD_JPEG "Build with lib jpeg" ON)
 option(BUILD_PNG "Build with lib png" ON)
@@ -57,6 +53,4 @@ if(BUILD_OPENGL3_RENDER)
     add_definitions(-D CEF_OPENGL3_RENDER)
 elseif(BUILD_OPENGL2_RENDER)
     add_definitions(-D CEF_OPENGL2_RENDER)
-elseif(BUILD_VULKAN_RENDER)
-    add_definitions(-D CEF_VULKAN_RENDER)
 endif()
