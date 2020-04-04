@@ -24,12 +24,8 @@ set(HEADERS
     src/app
 )
 
-if(MACOSX AND BUILD_METAL_RENDER)
-    # use metal for render
-    list(APPEND SOURCES src/main.mm)
-else()
-    list(APPEND SOURCES src/main.cpp)
-endif()
+list(APPEND SOURCES src/main.cpp)
+
 add_subdirectory(libs)
 
 aux_source_directory(src/app APP_SRC)
