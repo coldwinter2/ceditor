@@ -14,6 +14,16 @@ list(APPEND ${target_name}_libs lib_glfw3)
 # add opengl lib
 if(WINDOWS)
     list(APPEND ${target_name}_libs opengl32.lib gdi32.lib shell32.lib)
+elseif(APPLE)
+    find_library(COCOA_LIBRARY Cocoa)
+    find_library(OPENGL_LIBRARY OpenGL)
+    find_library(IOKIT_LIBRARY IOKit)
+
+    list(APPEND ${target_name}_libs 
+        ${COCOA_LIBRARY}
+        ${OPENGL_LIBRARY}
+        ${IOKIT_LIBRARY}
+    )
 endif()
 
 if(BUILD_OPENGL3_RENDER)
@@ -22,8 +32,6 @@ if(BUILD_OPENGL3_RENDER)
     set(${target_name}_path opengl3)
 elseif(BUILD_OPENGL2_RENDER)
     set(${target_name}_path opengl2)
-elseif(BUILD_VULKAN_RENDER)
-    set(${target_name}_path vulkan)
 endif()
 
 set(${target_name}_src
