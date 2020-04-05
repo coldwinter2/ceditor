@@ -1,10 +1,8 @@
 #include "Demo.h"
 #include "imgui.h"
 
-Demo::Demo():m_visible(true)
-{
-    
-}
+
+bool Demo::m_visible = true;
 
 void Demo::loop()
 {

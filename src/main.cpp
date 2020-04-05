@@ -53,7 +53,7 @@ int WinMain(HINSTANCE hInstance,
 	int nCmdShow)
 #endif
 {
-	AppDelegate app;
+	AppDelegate *app = AppDelegate::getInstance();
 	
 
     // Setup window
@@ -89,7 +89,7 @@ int WinMain(HINSTANCE hInstance,
 
     // Create window with graphics context
 
-    GLFWwindow* window = glfwCreateWindow(1280, 720, app.getAppTitle(), p_monitor, NULL);
+    GLFWwindow* window = glfwCreateWindow(1280, 720, app->getAppTitle(), p_monitor, NULL);
     if (window == NULL)
         return 1;
     glfwMakeContextCurrent(window);
@@ -123,7 +123,7 @@ int WinMain(HINSTANCE hInstance,
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
     //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-    //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
     //io.ConfigViewportsNoAutoMerge = true;
     //io.ConfigViewportsNoTaskBarIcon = true;
 
@@ -164,9 +164,9 @@ int WinMain(HINSTANCE hInstance,
 
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
-	app.onAppCreate();
+	app->onAppCreate();
     // Main loop
-    while (!glfwWindowShouldClose(window) && !app.needExit() )
+    while (!glfwWindowShouldClose(window) && !app->needExit() )
     {
         // Poll and handle events (inputs, window resize, etc.)
         // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
@@ -181,7 +181,7 @@ int WinMain(HINSTANCE hInstance,
         ImGui::NewFrame();
 
 
-		app.onLoop();
+		app->onLoop();
 
         // Rendering
         ImGui::Render();
@@ -213,6 +213,7 @@ int WinMain(HINSTANCE hInstance,
 
     glfwDestroyWindow(window);
     glfwTerminate();
-	app.onExit();
+	app->onExit();
+	app->destroy();
     return 0;
 }

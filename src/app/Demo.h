@@ -4,19 +4,18 @@
 class Demo
 {
 public:
-    Demo();
-       
-    virtual void loop();
-    
-    virtual void show();
-    
-    virtual void hide();
-    
-    virtual bool isVisible();
 
-	virtual void setVisible(bool);
+    static void loop();
+    
+    static void show();
+    
+    static void hide();
+    
+    static bool isVisible();
+
+	static void setVisible(bool);
 private:
-    bool m_visible;
+    static bool m_visible;
 };
 
 #endif

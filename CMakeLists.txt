@@ -50,3 +50,5 @@ if(BUILD_OPENGL3_RENDER)
 elseif(BUILD_OPENGL2_RENDER)
     add_definitions(-D CEF_OPENGL2_RENDER)
 endif()
+
+use_compile_options(${APP_NAME})

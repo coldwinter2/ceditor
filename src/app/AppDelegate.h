@@ -8,8 +8,15 @@
 
 using namespace std;
 class AppDelegate {
-public:
+
+private:
+	static AppDelegate* m_instance;
 	AppDelegate();
+
+public:
+
+	static AppDelegate* getInstance();
+
 	void onAppCreate();
 
 	void onLoop();
@@ -27,13 +34,20 @@ public:
 		return m_app_exit;
 	}
 
+	void destroy()
+	{
+		delete AppDelegate::m_instance;
+		AppDelegate::m_instance = nullptr;
+	}
+
 protected:
 	virtual void onDemoClick();
 private:
 	bool m_app_exit = false;
-	Demo demo;
 
 	bool m_dock_open;
+
+
 };
 
 #endif
