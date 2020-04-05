@@ -5,7 +5,10 @@ bool MainUI::m_dock_open = false;
 
 void MainUI::loop()
 {
-	ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+	ImGuiWindowFlags window_flags = 0;
+	window_flags |= ImGuiWindowFlags_MenuBar;
+	window_flags |= ImGuiWindowFlags_NoDocking;
+
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
 	ImGui::SetNextWindowPos(viewport->GetWorkPos());
 	ImGui::SetNextWindowSize(viewport->GetWorkSize());
@@ -26,11 +29,11 @@ void MainUI::loop()
 		{
 			if (ImGui::BeginMenu("File"))
 			{
-				if (ImGui::MenuItem("Open...", "Ctrl+O", false))
+				if (ImGui::MenuItem("Open...", "CTRL+O", false))
 				{
 
 				}
-				if (ImGui::MenuItem("Exit", "Ctrl+E", false))
+				if (ImGui::MenuItem("Exit", "CTRL+E", false))
 				{
 					AppDelegate::getInstance()->exit();
 				}

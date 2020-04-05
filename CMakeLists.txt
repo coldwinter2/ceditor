@@ -14,6 +14,12 @@ option(BUILD_OPENGL2_RENDER "Build with OpenGL2 render" OFF)
 # Use jpeg
 option(BUILD_JPEG "Build with lib jpeg" ON)
 option(BUILD_PNG "Build with lib png" ON)
+# Lightweight, portable and easy to integrate C directory and file reader 
+option(BUILD_TINYDIR "Build with tinydir" ON)
+# RapidXML,xml parser
+option(BUILD_RAPIDXML "Build with rapidxml" ON)
+#tinyxml2, an other xml parser
+option(BUILD_TINYXML2 "Build with tinyxml2" ON)
 
 set(SOURCES 
 src/imgui_impl_glfw.cpp

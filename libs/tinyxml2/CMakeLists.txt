@@ -7,6 +7,7 @@ project(${lib_name})
 
 set(${target_name}_src
   tinyxml2.cpp
+  tinyxml2.h
 )
 
 add_library(${target_name} STATIC
@@ -21,9 +22,3 @@ if(WINDOWS)
     target_compile_definitions(${target_name} PRIVATE CC_STATIC)
 endif()
 
-set_target_properties(${target_name}
-    PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
-    FOLDER "External"
-)
