@@ -32,7 +32,10 @@ void MainUI::loop()
 			{
 				if (ImGui::MenuItem("Open...", "CTRL+O", false))
 				{
-
+					OpenDialog::ShowOpen({ "a","b" }, [](string& s) {
+						if(s != "")
+							printf("path:%s\n", s.c_str());
+					});
 				}
 				if (ImGui::MenuItem("Exit", "CTRL+E", false))
 				{
@@ -45,9 +48,7 @@ void MainUI::loop()
 
 		if (ImGui::Button(Demo::isVisible() ? "hide demo" : "show demo"))
 		{
-			OpenDialog::ShowOpen({ "a","b" }, [](string& s) {
-				
-			});
+			
 		}
 	}
 

@@ -4,6 +4,8 @@
 #include "imgui.h"
 #include <functional>
 #include <vector>
+#include <algorithm>
+
 #include "tinydir.h"
 
 using namespace std;
@@ -60,7 +62,9 @@ private:
 					tinydir_close(&dir);
 					break;
 				}
-				root_path.push_back(dir.path);
+				string tp = dir.path;
+				tp.append("/");
+				root_path.push_back(tp);
 				tinydir_close(&dir);
 			}
 #else
@@ -104,12 +108,25 @@ private:
 				tinydir_next(&dir);
 			}
 			tinydir_close(&dir);
+			std::sort(files.begin(), files.end(),[](string& a,string& b)->bool {
+				bool ba = a == "..";
+				bool bb = b == "..";
+				bool pa = isFolder(a);
+				bool pb = isFolder(b);
+				if (ba) return true;
+				if (bb) return false;
+				if (pa != pb)
+				{
+					if (pa) return true;
+					if (pb) return false;
+				}
+				return a < b;
+			});
 		}
 
 		bool enter(string &folder)
 		{
-			if (folder.back() != '/' && folder.back() != '\\')
-				return false;
+			if (!isFolder(folder)) return false;
 			paths.push_back(folder);
 			update();
 			return true;
