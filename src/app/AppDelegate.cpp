@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "MainUI.h"
+#include "OpenDialog.h"
 
 AppDelegate* AppDelegate::m_instance = nullptr;
 
@@ -29,6 +30,7 @@ void AppDelegate::onLoop()
 
 	MainUI::loop();
 	Demo::loop();
+	OpenDialog::loop();
 }
 
 void AppDelegate::onDemoClick()

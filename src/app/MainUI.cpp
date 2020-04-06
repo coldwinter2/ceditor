@@ -1,5 +1,6 @@
 #include "MainUI.h"
 #include "Demo.h"
+#include "OpenDialog.h"
 
 bool MainUI::m_dock_open = false;
 
@@ -43,7 +44,11 @@ void MainUI::loop()
 		}
 
 		if (ImGui::Button(Demo::isVisible() ? "hide demo" : "show demo"))
-			Demo::setVisible(!Demo::isVisible());
+		{
+			OpenDialog::ShowOpen({ "a","b" }, [](string& s) {
+				
+			});
+		}
 	}
 
 	ImGui::End();
