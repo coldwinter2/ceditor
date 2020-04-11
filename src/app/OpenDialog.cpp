@@ -24,7 +24,7 @@ void OpenDialog::ShowOpen(vector<string> filter, OD_CALLBACK cb)
 	m_callback = cb;
 	is_visible = true;
 	file_selected = "";
-	title = "Open";
+	title = u8"打开";
 
 }
 
@@ -35,7 +35,7 @@ void OpenDialog::ShowSave(vector<string> filter, OD_CALLBACK cb)
 	m_callback = cb;
 	is_visible = true;
 	file_selected = "";
-	title = "Save";
+	title = u8"保存";
 
 }
 
@@ -54,7 +54,7 @@ void OpenDialog::loop()
 		is_visible = false;
 	}
 
-	if (ImGui::BeginPopupModal(title.c_str(),NULL,ImGuiWindowFlags_NoResize ))
+	if (ImGui::BeginPopupModal(u8"打开",NULL,ImGuiWindowFlags_NoResize ))
 	{
 #ifdef WIN32
 		static int combo_current_id = 0;
@@ -62,7 +62,7 @@ void OpenDialog::loop()
 		if (root.size() > 0)
 		{
 			combo_current_id = min(combo_current_id, root.size() - 1);
-			if (ImGui::BeginCombo("Driver", root[combo_current_id].c_str(), ImGuiWindowFlags_Popup))
+			if (ImGui::BeginCombo(u8"驱动器", root[combo_current_id].c_str(), ImGuiWindowFlags_Popup))
 			{
 				for (int id = 0; id < root.size(); id++)
 				{

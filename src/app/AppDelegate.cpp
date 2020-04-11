@@ -22,7 +22,10 @@ m_app_exit(false)
 
 void AppDelegate::onAppCreate() 
 {
-
+	ImFontConfig conf;
+	conf.GlyphRanges = ImGui::GetIO().Fonts->GetGlyphRangesChineseFull();
+	ImGui::GetIO().Fonts->AddFontDefault(&conf);
+	
 }
 
 void AppDelegate::onLoop() 
@@ -55,3 +58,8 @@ AppDelegate::~AppDelegate()
 	cout << "Application Exit" << endl;
 	printf("Debug info");
 }
+
+
+
+
+

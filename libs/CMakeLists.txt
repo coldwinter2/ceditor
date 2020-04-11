@@ -54,11 +54,22 @@ if(BUILD_JPEG)
     target_link_libraries(libs lib_jpeg) 
 endif(BUILD_JPEG)
 
+#build png
+if(BUILD_PNG)
+    add_subdirectory(png)
+    target_link_libraries(libs lib_png) 
+endif(BUILD_PNG)
 #build tinyxml2
 if(BUILD_TINYXML2)
-add_subdirectory(tinyxml2)
-target_link_libraries(libs lib_tinyxml2) 
+    add_subdirectory(tinyxml2)
+    target_link_libraries(libs lib_tinyxml2) 
 endif(BUILD_TINYXML2)
+
+#build zlib
+if(BUILD_ZLIB)
+    add_subdirectory(zlib)
+    target_link_libraries(libs lib_zlib) 
+endif(BUILD_ZLIB)
 
 #BUILD_IMGUI
 add_subdirectory(imgui)

@@ -53,6 +53,12 @@ int WinMain(HINSTANCE hInstance,
 	int nCmdShow)
 #endif
 {
+#ifdef WIN32
+	AllocConsole();
+	freopen("CONOUT$", "w", stdout);
+	freopen("CONOUT$", "w", stderr);
+	
+#endif
 	AppDelegate *app = AppDelegate::getInstance();
 	
 

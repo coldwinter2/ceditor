@@ -20,6 +20,8 @@ option(BUILD_TINYDIR "Build with tinydir" ON)
 option(BUILD_RAPIDXML "Build with rapidxml" ON)
 #tinyxml2, an other xml parser
 option(BUILD_TINYXML2 "Build with tinyxml2" ON)
+# Zlib
+option(BUILD_ZLIB "Build with zlib" ON)
 
 set(SOURCES 
 src/imgui_impl_glfw.cpp
